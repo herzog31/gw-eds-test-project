@@ -9,7 +9,8 @@
     "lint": "npm run lint:js && npm run lint:css",
     "semantic-release": "semantic-release --debug",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "start": "aem up --print-index"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   },
   "homepage": "https://github.com/adobe/aem-boilerplate#readme",
   "devDependencies": {
+    "@adobe/aem-cli": "^16.1.1",
     "@babel/core": "7.23.5",
     "@babel/eslint-parser": "7.23.3",
     "@semantic-release/changelog": "6.0.3",
