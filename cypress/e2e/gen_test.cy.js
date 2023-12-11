@@ -1,31 +1,40 @@
-describe('Columns Test', () => {
+describe('cards-test-page', () => {
     beforeEach(() => {
-        cy.visit('columns-test-page');
+        cy.visit('cards-test-page');
     });
 
-    it('Checks if the class is added based on the number of columns', () => {
-        cy.get('.columns').each(($el) => {
-            cy.wrap($el).children().should('have.class', `columns-${$el.children().length}-cols`);
-        });
-    });
-
-    it('Checks if the class "columns-img-col" is added to the div with only picture', () => {
-        cy.get('.columns').each(($el) => {
-            cy.wrap($el).find('div').each(($div) => {
-                if ($div.children().length === 1 && $div.find('picture').length === 1) {
-                    cy.wrap($div).should('have.class', 'columns-img-col');
-                }
+    it('Check if divs are converted to ul, li', () => {
+        cy.get('.cards').each(($card) => {
+            cy.wrap($card).should('have.prop', 'tagName').should('eq', 'UL');
+            cy.wrap($card).children().each(($item) => {
+                cy.wrap($item).should('have.prop', 'tagName').should('eq', 'LI');
             });
         });
     });
 
-    it('Checks if the class "columns-img-col" is not added to the div without picture', () => {
-        cy.get('.columns').each(($el) => {
-            cy.wrap($el).find('div').each(($div) => {
-                if ($div.find('picture').length === 0) {
-                    cy.wrap($div).should('not.have.class', 'columns-img-col');
-                }
-            });
+    it('Check if divs with single picture child have class "cards-card-image"', () => {
+        cy.get('.cards-card-image').each(($div) => {
+            cy.wrap($div).children().should('have.length', 1);
+            cy.wrap($div).find('picture').should('exist');
+        });
+    });
+
+    it('Check if divs without single picture child have class "cards-card-body"', () => {
+        cy.get('.cards-card-body').each(($div) => {
+            cy.wrap($div).children().should('not.have.length', 1);
+            cy.wrap($div).find('picture').should('not.exist');
+        });
+    });
+
+    it('Check if all images are replaced with optimized pictures', () => {
+        cy.get('img').each(($img) => {
+            cy.wrap($img).parents('picture').should('not.exist');
+        });
+    });
+
+    it('Check if block text content is empty', () => {
+        cy.get('.cards').each(($card) => {
+            cy.wrap($card).invoke('text').should('be.empty');
         });
     });
 });
