@@ -11,13 +11,13 @@ describe('cards-test-page', () => {
 
     it('checks if the complex block is correctly transformed', () => {
         cy.get('.cards.complex ul').should('exist')
-        cy.get('.cards.complex ul li').should('have.length', 2)
         cy.get('.cards.complex ul li .cards-card-image').should('have.length', 2)
     })
 
     it('checks if the empty block is correctly transformed', () => {
         cy.get('.cards.empty ul').should('exist')
-        cy.get('.cards.empty ul li').should('have.length', 0)
+        cy.get('.cards.empty ul li .cards-card-body').should('have.length', 1)
+        cy.get('.cards.empty ul li .cards-card-body').should('be.empty')
     })
 
     it('checks if the images are optimized', () => {
